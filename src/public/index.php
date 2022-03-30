@@ -10,6 +10,8 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager as EventsManager;
 
 $config = new Config([]);
 
@@ -24,9 +26,15 @@ $loader->registerDirs(
     [
         APP_PATH . "/controllers/",
         APP_PATH . "/models/",
+        APP_PATH . "/listeners/",
     ]
 );
 
+$loader->registerNamespaces(
+    [
+        'App\Listeners' => APP_PATH . '/listeners'
+    ]
+);
 $loader->register();
 
 $container = new FactoryDefault();
@@ -49,6 +57,18 @@ $container->set(
     }
 );
 
+$eventManager = new EventsManager();
+
+$eventManager->attach(
+    'notifications',
+    new App\Listeners\notificationListeners()
+);
+
+$container->set(
+    'eventManager',
+    $eventManager
+);
+
 $application = new Application($container);
 
 
@@ -62,9 +82,9 @@ $container->set(
                 'username' => 'root',
                 'password' => 'secret',
                 'dbname'   => 'store',
-                ]
-            );
-        }
+            ]
+        );
+    }
 );
 
 // $container->set(

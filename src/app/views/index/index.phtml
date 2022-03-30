@@ -1,38 +1,31 @@
 <?php
-
-echo "<h1>Hello World</h1>";
+echo '<div style="margin-left : 20px;">';
+echo "<h2>Phalcon Event</h2>";
 
 echo PHP_EOL;
 
 echo $this->tag->linkTo(
-    'signup',
-    'Sign Up Here!'
+    'product/add',
+    'Add Products'
 );
-
-if ($users->count() > 0) {
-    ?>
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <td colspan="3">Users quantity: <?php echo $users->count(); ?></td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <?php foreach ($users as $user) { ?>
-            <tr>
-                <td><?php echo $user->id; ?></td>
-                <td><?php echo $user->name; ?></td>
-                <td><?php echo $user->email; ?></td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-    <?php
-}
+echo '<br>';
+echo $this->tag->linkTo(
+    'product',
+    'Products'
+);
+echo '<br>';
+echo $this->tag->linkTo(
+    'order',
+    'Orders'
+);
+echo '<br>';
+echo $this->tag->linkTo(
+    'order/addorder',
+    'Place Order'
+);
+echo '<br>';
+echo $this->tag->linkTo(
+    '/settings',
+    'Settings'
+);
+echo '</div>';
